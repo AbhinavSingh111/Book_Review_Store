@@ -1,7 +1,30 @@
 <%- include("header.ejs") %>
-<%- review  %>
-<div class="left-box body">
-    <button><a href="<%=artUri%>/edit">Edit</a></button>
-    <button><a href="/">Delete</a></button>
+<div class="book-container">
+    <% if(locals.data != null){%>
+        <div class="book-content">
+            <img src="<%= data.imageUrl %>" alt="<%= data.title %>">
+            <h2><strong><%= data.title %></strong></h2>
+            <p><strong>Date:</strong> <%= formatDate(data.date) %></p>
+            <p><strong>Rating:</strong> <%= data.rating %></p>
+        </div>
+        <div class="notes-section">
+            <p><strong>Notes:</strong> <%= data.notes %></p>
+        </div>
+        <%}
+        else{ %>
+            <h3>Please Read !</h3>
+        <%}%>
+
 </div>
+<div class="left-box body">
+    <button><a href="<%=data.isbn%>/edit">Edit</a></button>
+    <button><a href="<%=data.isbn%>/delete">Delete</a></button>
+</div>
+<%
+function formatDate(date) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+}
+%>
+
 <!-- <%- include("footer.ejs") %> -->

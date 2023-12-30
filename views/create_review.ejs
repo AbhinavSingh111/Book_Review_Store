@@ -1,0 +1,72 @@
+<%- include("partials/header.ejs") %>
+<style>
+    /* Add this CSS in your styles.css or within a <style> tag in your HTML/EJS file */
+
+/* Add this CSS in your styles.css or within a <style> tag in your HTML/EJS file */
+
+    .create-form-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-form-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.create-form-container input[type="text"],
+.create-form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.create-form-container button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.create-form-container button:hover {
+    background-color: #45a049;
+}
+
+
+</style>
+<body>
+<form class="create-form-container" action="/new-review/saved" method="post">
+
+
+    <label for="isbn">ISBN:</label>
+    <input type="number" id="isbn" name="isbn" required>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="about">About:</label>
+    <input type="text" id="about" name="about" required>
+
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" name="rating" required>
+
+    <label for="notes">Notes:</label>
+    <textarea type="text" id="notes" name="notes"  rows="9" required></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
+
+
+
