@@ -1,4 +1,15 @@
-<%- include("header.ejs") %> 
+<%- include("header.ejs") %>
+<style>
+  body {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  .book-container {
+        border: 1px solid #ccc; /* You can customize the border style */
+        padding: 10px; /* Optional: Add padding for better visual appearance */
+        margin: 10px; /* Optional: Add margin for spacing between divs */
+    }
+</style>
 <% if(locals.data != null){%>
 <div class="book-container">
   <div class="book-content">
@@ -20,8 +31,7 @@
   If the ISBN number or title is correct then I have not read it. Send me the
   name using contact page.
 </h3>
-<%}%>
-<% function formatDate(date) { const options = { day: '2-digit', month:
+<%}%> <% function formatDate(date) { const options = { day: '2-digit', month:
 '2-digit', year: 'numeric' }; return new Date(date).toLocaleDateString('en-GB',
 options); } %>
 

@@ -1,9 +1,80 @@
 <%- include("partials/header.ejs") %>
-<h1>Contact Me</h1>
-<form>
-  <input name="name" type="text" class="feedback-input" placeholder="Name" />
-  <input name="email" type="text" class="feedback-input" placeholder="Email" />
-  <textarea name="text" class="feedback-input" placeholder="Comment"></textarea>
-  <input type="submit" value="SUBMIT" />
-</form>
+<style>
+  /* Your custom CSS styles can go here if needed */
+  body {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+
+  .create-form-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .create-form-container label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .create-form-container input[type="text"],
+  .create-form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+
+  .create-form-container button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .create-form-container button:hover {
+    background-color: #45a049;
+  }
+</style>
+<h1 class="mt-3 mb-4">Contact Me</h1>
+
+<div>
+  <form class="create-form-container" action="/user-message" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        name="name"
+        type="text"
+        class="form-control feedback-input"
+        placeholder="Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        name="email"
+        type="email"
+        class="form-control feedback-input"
+        placeholder="Email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea
+        name="message"
+        class="form-control feedback-input"
+        placeholder="Comment"
+        required
+      ></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
 <%- include("partials/footer.ejs") %>
