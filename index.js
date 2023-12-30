@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import { log } from "console";
 import express from "express";
 import pg from "pg";
 
@@ -17,10 +18,10 @@ db.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-async function get_reviews() {
-  const reviews = await db.query("SELECT * FROM reviews");
+async function get_reviews(criteria) {
+  const reviews = await db.query(`SELECT * FROM reviews order by ${criteria} desc`);
+  console.log(criteria);
   const result = [];
-  const image_urls = [];
   reviews.rows.forEach((review) => {
     let isbn = review.isbn.toString().split("-").join("");
     let img_url = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`;
@@ -57,9 +58,17 @@ async function create_review(isbn, title, date, about, notes, rating) {
 }
 
 app.get("/", async (req, res) => {
-  const data = await get_reviews();
+  const data = await get_reviews("title");
   res.render("index.ejs", { data: data });
 });
+
+app.post('/orderby' ,async (req,res)=>{
+    const criteria = req.body.orderby;
+    const data = await get_reviews(criteria);
+    res.render("index.ejs", { data: data });
+    
+})
+
 
 app.get("/add-review", (req, res) => {
   res.render("create_review.ejs");
@@ -72,7 +81,6 @@ app.post("/new-review/saved", async (req, res) => {
   let about = req.body.about;
   let rating = req.body.rating;
   let notes = req.body.notes;
-  console.log(isbn);
   await create_review(isbn, title, date, about, notes, rating);
   res.redirect("/");
 });
@@ -80,7 +88,6 @@ app.post("/new-review/saved", async (req, res) => {
 app.get("/:isbn", async (req, res) => {
   const isbn = req.params.isbn;
   const data = await fetchIsbnWise(isbn);
-  console.log(data);
   res.render("partials/review.ejs", { data: data });
 });
 
@@ -99,9 +106,6 @@ app.post("/:isbn/saved", async (req, res) => {
   await editIsbnWise(isbn, title, date, rating, notes);
   const data = await fetchIsbnWise(isbn);
   res.render("partials/review.ejs", { data: data });
-
-  console.log(isbn);
-  console.log(title);
 });
 
 app.get('/:isbn/delete', async (req,res)=>{
@@ -120,5 +124,5 @@ app.get("/contact", (req, res) => {
 });
 
 app.listen(port, (req, res) => {
-  console.log("server running on port 4000");
+  console.log(`server running on port ${port}`);
 });

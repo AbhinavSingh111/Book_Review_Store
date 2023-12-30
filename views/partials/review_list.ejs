@@ -6,6 +6,16 @@
     }
 </style>
 <div class="book-container">
+    <div>
+        <form action="/orderby" method="post">
+            <select id="bookDropdown" name="orderby">
+                <option value="title">Title</option>
+                <option value="rating">Rating</option>
+                <option value="date">Time</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <% if(locals.data.length>0){%>
         <% for(let i=0 ; i<data.length ; i++) {%>
             <% const uri = encodeURIComponent(data[i].isbn) %>
