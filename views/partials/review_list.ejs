@@ -1,0 +1,33 @@
+<style>
+    .book-container {
+        border: 1px solid #ccc; /* You can customize the border style */
+        padding: 10px; /* Optional: Add padding for better visual appearance */
+        margin: 10px; /* Optional: Add margin for spacing between divs */
+    }
+</style>
+<div class="book-container">
+    <% if(locals.data.length>0){%>
+        <% for(let i=0 ; i<data.length ; i++) {%>
+            <% const uri = encodeURIComponent(data[i].isbn) %>
+            <a href=<%=uri%> style="text-decoration: none; color: inherit;">
+                <div class="book-container">
+                <img src="<%= data[i].img_url %>" alt="<%= data[i].title %>">
+                <h2><%= data[i].title %></h2>
+                <p><strong>Date:</strong> <%= formatDate(data[i].date) %></p>
+                <p><strong>About:</strong> <%= data[i].about %></p>
+                <p><strong>Rating:</strong> <%= data[i].rating %></p>
+                </div>
+            </a>    
+        <%} %>
+    <%}
+    else{ %>
+        <h3>Please Read !</h3>
+    <%}%>
+</div>
+
+<%
+function formatDate(date) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en-GB', options);
+}
+%>
